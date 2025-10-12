@@ -1,0 +1,40 @@
+# Build artifacts
+/dist/
+linkbeam
+*.exe
+*.out
+*.test
+
+# Test coverage
+coverage.out
+coverage.html
+*.cover
+*.cov
+
+# Editor & IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+.DS_Store
+
+# Testing
+coverage.out
+coverage.html
+*.cover
+*.cov
+
+# Go module cache
+/vendor/
+
+# Environment
+.env
+.env.local
+.venv/
+
+# User config (example file is tracked)
+config.yaml
+
+# Pre-commit
+.pre-commit-cache/

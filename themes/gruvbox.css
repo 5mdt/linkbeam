@@ -1,0 +1,247 @@
+/* gruvbox.css - Gruvbox theme for LinkBeam (Automatic light/dark) */
+/* Based on the Gruvbox color scheme: https://github.com/morhetz/gruvbox */
+
+/* Default: Light mode */
+:root {
+    /* Gruvbox Light background colors */
+    --bg-color: #fbf1c7;
+    --text-color: #3c3836;
+    --text-secondary: #504945;
+    --link-bg: #f9f5d7;
+    --link-hover: #f2e5bc;
+    --border-color: #d5c4a1;
+
+    /* Gruvbox accent colors (green/aqua tones) */
+    --accent-color: #689d6a;
+    --accent-light: #98971a;
+
+    /* Shadows with warm tones for Gruvbox Light */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+    /* Gradients using Gruvbox light shades */
+    --bg-gradient-start: #fbf1c7;
+    --bg-gradient-end: #f9f5d7;
+
+    /* Glow effects using Gruvbox green/aqua colors */
+    --glow-color: rgba(104, 157, 106, 0.3);
+    --glow-hover: rgba(104, 157, 106, 0.2);
+    --shimmer: rgba(104, 157, 106, 0.1);
+}
+
+/* System dark mode preference */
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Gruvbox Dark background colors */
+        --bg-color: #282828;
+        --text-color: #ebdbb2;
+        --text-secondary: #d5c4a1;
+        --link-bg: #3c3836;
+        --link-hover: #504945;
+        --border-color: #665c54;
+
+        /* Gruvbox accent colors (aqua/green tones) */
+        --accent-color: #8ec07c;
+        --accent-light: #b8bb26;
+
+        /* Shadows with warm tones for Gruvbox Dark */
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+        --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+
+        /* Gradients using Gruvbox dark shades */
+        --bg-gradient-start: #282828;
+        --bg-gradient-end: #3c3836;
+
+        /* Glow effects using Gruvbox green/aqua colors */
+        --glow-color: rgba(142, 192, 124, 0.4);
+        --glow-hover: rgba(142, 192, 124, 0.3);
+        --shimmer: rgba(142, 192, 124, 0.15);
+    }
+}
+
+/* Manual overrides (highest specificity) */
+html[data-theme="light"] {
+    /* Gruvbox Light background colors */
+    --bg-color: #fbf1c7;
+    --text-color: #3c3836;
+    --text-secondary: #504945;
+    --link-bg: #f9f5d7;
+    --link-hover: #f2e5bc;
+    --border-color: #d5c4a1;
+
+    /* Gruvbox accent colors (green/aqua tones) */
+    --accent-color: #689d6a;
+    --accent-light: #98971a;
+
+    /* Shadows with warm tones for Gruvbox Light */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+    /* Gradients using Gruvbox light shades */
+    --bg-gradient-start: #fbf1c7;
+    --bg-gradient-end: #f9f5d7;
+
+    /* Glow effects using Gruvbox green/aqua colors */
+    --glow-color: rgba(104, 157, 106, 0.3);
+    --glow-hover: rgba(104, 157, 106, 0.2);
+    --shimmer: rgba(104, 157, 106, 0.1);
+}
+
+html[data-theme="dark"] {
+    /* Gruvbox Dark background colors */
+    --bg-color: #282828;
+    --text-color: #ebdbb2;
+    --text-secondary: #d5c4a1;
+    --link-bg: #3c3836;
+    --link-hover: #504945;
+    --border-color: #665c54;
+
+    /* Gruvbox accent colors (aqua/green tones) */
+    --accent-color: #8ec07c;
+    --accent-light: #b8bb26;
+
+    /* Shadows with warm tones for Gruvbox Dark */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+
+    /* Gradients using Gruvbox dark shades */
+    --bg-gradient-start: #282828;
+    --bg-gradient-end: #3c3836;
+
+    /* Glow effects using Gruvbox green/aqua colors */
+    --glow-color: rgba(142, 192, 124, 0.4);
+    --glow-hover: rgba(142, 192, 124, 0.3);
+    --shimmer: rgba(142, 192, 124, 0.15);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+    background-attachment: fixed;
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+header img {
+    border-radius: 50%;
+    border: 4px solid var(--link-bg);
+    box-shadow: var(--shadow-lg), 0 0 0 1px var(--border-color);
+    margin-bottom: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+header img:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-lg), 0 0 20px var(--glow-color);
+}
+
+header h1 {
+    margin: 0.5rem 0;
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+header p {
+    margin: 0.75rem 0;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+main {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem 1rem 3rem;
+}
+
+main ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+main li {
+    margin-bottom: 1rem;
+}
+
+main a {
+    display: block;
+    padding: 1.25rem 1.5rem;
+    background-color: var(--link-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+}
+
+main a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--shimmer), transparent);
+    transition: left 0.5s ease;
+}
+
+main a:hover::before {
+    left: 100%;
+}
+
+main a:hover {
+    background-color: var(--link-hover);
+    border-color: var(--accent-color);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: var(--shadow-md), 0 0 20px var(--glow-hover);
+}
+
+main a:active {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: var(--shadow-sm);
+}
+
+main a i {
+    margin-right: 0.5rem;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem 1rem 3rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+footer p {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}

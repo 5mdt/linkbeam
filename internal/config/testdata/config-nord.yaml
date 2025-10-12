@@ -1,0 +1,23 @@
+# config-nord.yaml - Test config with Nord theme
+
+---
+name: "Test User Nord"
+bio: "Testing Nord theme with light/dark variants"
+avatar: "static/logo.png"
+theme: "nord"
+footer:
+  - text: "© 2025 Test User"
+  - text: "Nord Theme"
+
+links:
+  - title: "My Website"
+    url: "https://example.com"
+    icon: "fas fa-globe"
+  - title: "GitHub"
+    url: "https://github.com/user"
+    icon: "fab fa-github"
+
+socials:
+  - platform: "Twitter"
+    url: "https://twitter.com/user"
+    icon: "fab fa-twitter"

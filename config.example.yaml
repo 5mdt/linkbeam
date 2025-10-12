@@ -1,0 +1,36 @@
+# config.example.yaml
+# Example configuration for LinkBeam
+
+---
+name: "Your Name"
+bio: "A short bio about yourself"
+avatar: "static/logo.png"  # Can be a local path or URL (http://... or https://...)
+theme: "auto"
+links:
+  - title: "My Website"
+    url: "https://yourwebsite.com"
+    icon: "fas fa-globe"
+  - title: "Blog"
+    url: "https://yourblog.com"
+    icon: "fas fa-blog"
+  - title: "GitHub"
+    url: "https://github.com/yourusername"
+    icon: "fab fa-github"
+  - title: "Portfolio"
+    url: "https://portfolio.com"
+    icon: "fas fa-briefcase"
+
+socials:
+  - platform: "Twitter"
+    url: "https://twitter.com/yourusername"
+    icon: "fab fa-twitter"
+  - platform: "LinkedIn"
+    url: "https://linkedin.com/in/yourusername"
+    icon: "fab fa-linkedin"
+  - platform: "Instagram"
+    url: "https://instagram.com/yourusername"
+    icon: "fab fa-instagram"
+
+footer:
+  - text: "© 2025 Your Name"
+  - text: "Made with LinkBeam"

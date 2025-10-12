@@ -1,0 +1,138 @@
+/* catppuccin-mocha.css - Catppuccin Mocha theme for LinkBeam (with light/dark toggle) */
+/* Based on: https://github.com/catppuccin/catppuccin */
+
+/* Default: Latte (light) */
+:root {
+    --bg-color: #eff1f5;
+    --text-color: #4c4f69;
+    --text-secondary: #6c6f85;
+    --link-bg: #e6e9ef;
+    --link-hover: #dce0e8;
+    --border-color: #ccd0da;
+    --accent-color: #7287fd;
+}
+
+/* System dark mode: Switch to Mocha */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #1e1e2e;
+        --text-color: #cdd6f4;
+        --text-secondary: #bac2de;
+        --link-bg: #313244;
+        --link-hover: #45475a;
+        --border-color: #585b70;
+        --accent-color: #b4befe;
+    }
+}
+
+/* Manual overrides */
+html[data-theme="light"] {
+    --bg-color: #eff1f5;
+    --text-color: #4c4f69;
+    --text-secondary: #6c6f85;
+    --link-bg: #e6e9ef;
+    --link-hover: #dce0e8;
+    --border-color: #ccd0da;
+    --accent-color: #7287fd;
+}
+
+html[data-theme="dark"] {
+    --bg-color: #1e1e2e;
+    --text-color: #cdd6f4;
+    --text-secondary: #bac2de;
+    --link-bg: #313244;
+    --link-hover: #45475a;
+    --border-color: #585b70;
+    --accent-color: #b4befe;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+header {
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+header img {
+    border-radius: 50%;
+    border: 3px solid var(--border-color);
+    margin-bottom: 1.5rem;
+}
+
+header h1 {
+    margin: 0.5rem 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+header p {
+    margin: 0.75rem 0;
+    color: var(--text-secondary);
+}
+
+main {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1rem 1rem 3rem;
+}
+
+main ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+main li {
+    margin-bottom: 1rem;
+}
+
+main a {
+    display: block;
+    padding: 1rem 1.5rem;
+    background-color: var(--link-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+main a:hover {
+    background-color: var(--link-hover);
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+main a i {
+    margin-right: 0.5rem;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem 1rem 3rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+footer p {
+    margin: 0.5rem 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}

@@ -1,0 +1,12 @@
+# config-invalid-theme.yaml - Test config with invalid theme (for error testing)
+
+---
+name: "Test User Invalid"
+bio: "Testing invalid theme error handling"
+avatar: "static/logo.png"
+theme: "nonexistent"
+
+links:
+  - title: "My Website"
+    url: "https://example.com"
+    icon: "fas fa-globe"

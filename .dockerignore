@@ -1,0 +1,53 @@
+# Build artifacts
+/bin/
+/build/
+/dist/
+linkbeam
+*.exe
+*.out
+*.test
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# CI/CD
+.gitea/
+.github/
+.gitlab/
+.circleci/
+
+# Editor & IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+.DS_Store
+
+# Testing
+coverage.out
+coverage.html
+*.cover
+*.cov
+
+# Go module cache
+/vendor/
+
+# Environment
+.env
+.env.local
+.venv/
+
+# User config (example tracked separately)
+config.yaml
+
+# Documentation (keep lightweight, exclude these)
+
+.editorconfig
+.gitattributes
+
+# Pre-commit
+.pre-commit-config.yaml
+.pre-commit-cache/

@@ -1,0 +1,26 @@
+---
+
+services:
+  app:
+    image: docker.io/5mdt/linkbeam:latest
+    build: .
+    volumes:
+      # Mount your config file
+      - ./config.yaml:/app/config/config.yaml:ro
+      # Mount output directory
+      - ./dist:/app/dist
+      # Optional: mount custom templates
+      - ./templates:/app/templates:ro
+      # Optional: mount custom themes
+      - ./themes:/app/themes:ro
+    environment:
+      - CONFIG_PATH=${CONFIG_PATH:-/app/config/config.yaml}
+    restart: "no"
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - ${PUBLIC_PORT:-"80:80"}
+    volumes:
+      - ./dist:/usr/share/nginx/html:ro
+    restart: unless-stopped

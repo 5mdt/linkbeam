@@ -1,0 +1,23 @@
+# config-catppuccin-frappe.yaml - Test config with Catppuccin Frappé theme
+
+---
+name: "Test User Catppuccin"
+bio: "Testing Catppuccin Frappé theme"
+avatar: "static/logo.png"
+theme: "catppuccin-frappe"
+footer:
+  - text: "© 2025 Test User"
+  - text: "Catppuccin Frappé Theme"
+
+links:
+  - title: "My Website"
+    url: "https://example.com"
+    icon: "fas fa-globe"
+  - title: "GitHub"
+    url: "https://github.com/user"
+    icon: "fab fa-github"
+
+socials:
+  - platform: "Twitter"
+    url: "https://twitter.com/user"
+    icon: "fab fa-twitter"

@@ -1,0 +1,23 @@
+# config-catppuccin.yaml - Test config with Catppuccin theme
+
+---
+name: "Test User Catppuccin"
+bio: "Testing Catppuccin Mocha theme"
+avatar: "static/logo.png"
+theme: "catppuccin-mocha"
+footer:
+  - text: "© 2025 Test User"
+  - text: "Catppuccin Mocha Theme"
+
+links:
+  - title: "My Website"
+    url: "https://example.com"
+    icon: "fas fa-globe"
+  - title: "GitHub"
+    url: "https://github.com/user"
+    icon: "fab fa-github"
+
+socials:
+  - platform: "Twitter"
+    url: "https://twitter.com/user"
+    icon: "fab fa-twitter"

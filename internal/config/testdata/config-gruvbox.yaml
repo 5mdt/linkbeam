@@ -1,0 +1,23 @@
+# config-gruvbox.yaml - Test config with Gruvbox theme
+
+---
+name: "Test User Gruvbox"
+bio: "Testing Gruvbox theme with light/dark variants"
+avatar: "static/logo.png"
+theme: "gruvbox"
+footer:
+  - text: "© 2025 Test User"
+  - text: "Gruvbox Theme"
+
+links:
+  - title: "My Website"
+    url: "https://example.com"
+    icon: "fas fa-globe"
+  - title: "GitHub"
+    url: "https://github.com/user"
+    icon: "fab fa-github"
+
+socials:
+  - platform: "Twitter"
+    url: "https://twitter.com/user"
+    icon: "fab fa-twitter"

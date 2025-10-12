@@ -1,0 +1,63 @@
+# Pre-commit hooks for Go project
+# See https://pre-commit.com for more information
+
+repos:
+  # Go-specific hooks
+  - repo: https://github.com/tekwizely/pre-commit-golang
+    rev: v1.0.0-rc.1
+    hooks:
+      # Format code
+      - id: go-fmt
+        args: [-w]
+
+      # Organize imports
+      - id: go-imports
+        args: [-w]
+
+      # Examine Go source code and report suspicious constructs
+      - id: go-vet
+
+      # Run tests
+      - id: go-test-mod
+      - id: go-test-pkg
+      - id: go-test-repo-mod
+      - id: go-test-repo-pkg
+
+      # Tidy go.mod and go.sum
+      - id: go-mod-tidy
+
+      # Run golangci-lint (comprehensive linter)
+      - id: golangci-lint
+        args: [--fast]
+
+  # General hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      # Prevent giant files from being committed
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+
+      # Check for files that would conflict in case-insensitive filesystems
+      - id: check-case-conflict
+
+      # Check for merge conflicts
+      - id: check-merge-conflict
+
+      # Check YAML syntax
+      - id: check-yaml
+
+      # Ensure files end with newline
+      - id: end-of-file-fixer
+        exclude: '\.html$'
+
+      # Trim trailing whitespace
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+
+      # Detect private keys
+      - id: detect-private-key
+
+      # Don't commit directly to main
+      - id: no-commit-to-branch
+        args: ['--branch', 'main', '--branch', 'master']
