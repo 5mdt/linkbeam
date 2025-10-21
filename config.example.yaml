@@ -6,6 +6,7 @@ name: "Your Name"
 bio: "A short bio about yourself"
 avatar: "static/logo.png"  # Can be a local path or URL (http://... or https://...)
 theme: "auto"
+# font_awesome_cdn: "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"  # Optional: custom Font Awesome CDN URL (default: Font Awesome 6.5.1)
 links:
   - title: "My Website"
     url: "https://yourwebsite.com"
