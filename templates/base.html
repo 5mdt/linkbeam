@@ -7,44 +7,19 @@
     <title>{{ .Name }} - LinkBeam</title>
     <link rel="icon" type="image/x-icon" href="/static/favicon.png">
     <link rel="stylesheet" href="/themes/{{ .Theme }}.css" />
-    {{- if .FontAwesomeCDN }}
-    <link rel="stylesheet" href="{{ .FontAwesomeCDN }}" />
-    {{- else }}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    {{- end }}
     <style>
         .theme-toggle {
             position: fixed;
             top: 1rem;
             right: 1rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 50%;
-            transition: transform 0.2s ease;
             z-index: 1000;
-        }
-        .theme-toggle:hover {
-            transform: scale(1.1);
-        }
-        .theme-toggle:active {
-            transform: scale(0.95);
+            width: auto;
         }
         .theme-label {
             display: none;
         }
         @media (min-width: 768px) {
-            .theme-toggle {
-                display: flex;
-                align-items: center;
-                gap: 0.5rem;
-                border-radius: 2rem;
-                padding: 0.5rem 1rem;
-                background-color: var(--link-bg);
-                border: 1px solid var(--border-color);
-            }
             .theme-label {
                 display: inline;
                 font-size: 0.9rem;
@@ -60,7 +35,8 @@
             margin: 2rem auto;
             padding: 1rem;
         }
-        .socials a {
+        .socials a,
+        .socials button {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -73,10 +49,41 @@
             text-decoration: none;
             font-size: 1.5rem;
             transition: all 0.2s ease;
+            cursor: pointer;
+            padding: 0;
         }
-        .socials a:hover {
+        .socials a:hover,
+        .socials button:hover {
             background-color: var(--link-hover);
             transform: scale(1.1);
+        }
+        .copy-button.copied {
+            background-color: var(--link-hover);
+        }
+        .section-title {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 2rem auto 1rem;
+            color: var(--text-color);
+            text-transform: capitalize;
+        }
+        .copy-feedback {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--link-bg);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        .copy-feedback.show {
+            opacity: 1;
         }
     </style>
 </head>
@@ -92,34 +99,156 @@
         <h1>{{ .Name }}</h1>
         <p>{{ .Bio }}</p>
     </header>
-    <main>
-        <ul>
-            {{- range .Links }}
-            <li>
-                <a href="{{ .URL }}" target="_blank" rel="noopener noreferrer">
-                    {{- if .Icon }}<i class="{{ .Icon }}"></i> {{- end }}{{ .Title }}
-                </a>
-            </li>
+
+    {{- range .Content }}
+        {{- if eq .Type "vertical-list-text" }}
+            {{- range $collectionName, $items := .Collections }}
+            {{- if $collectionName }}
+            <h2 class="section-title">{{ $collectionName }}</h2>
             {{- end }}
-        </ul>
-    </main>
-    {{- if .Socials }}
-    <div class="socials">
-        {{- range .Socials }}
-        <a href="{{ .URL }}" target="_blank" rel="noopener noreferrer" aria-label="{{ .Platform }}" title="{{ .Platform }}">
-            {{- if .Icon }}<i class="{{ .Icon }}"></i>{{- end }}
-        </a>
+            <main>
+                <ul>
+                    {{- range $items }}
+                    <li>
+                        {{- if .URL }}
+                        <a href="{{ .URL }}" target="_blank" rel="noopener noreferrer">
+                            {{- if .Icon }}<i class="{{ .Icon }}"></i> {{- end }}{{ .Title }}
+                        </a>
+                        {{- else if .CopyText }}
+                        <button class="copy-button" onclick="copyToClipboard('{{ .CopyText }}', this)" aria-label="Copy {{ .Title }}">
+                            {{- if .Icon }}<i class="{{ .Icon }}"></i> {{- end }}{{ .Title }}: <code>{{ .CopyText }}</code>
+                        </button>
+                        {{- else if .Text }}
+                        <span>
+                            {{- if .Icon }}<i class="{{ .Icon }}"></i> {{- end }}{{ .Text }}
+                        </span>
+                        {{- end }}
+                    </li>
+                    {{- end }}
+                </ul>
+            </main>
+            {{- end }}
+        {{- else if eq .Type "horizontal-list-icons" }}
+            {{- range $collectionName, $items := .Collections }}
+            {{- if $collectionName }}
+            <h2 class="section-title">{{ $collectionName }}</h2>
+            {{- end }}
+            <div class="socials">
+                {{- range $items }}
+                    {{- if .URL }}
+                    <a href="{{ .URL }}" target="_blank" rel="noopener noreferrer" aria-label="{{ .Title }}" title="{{ .Title }}">
+                        {{- if .Icon }}<i class="{{ .Icon }}"></i>{{- end }}
+                    </a>
+                    {{- else if .CopyText }}
+                    <button class="copy-button" onclick="copyToClipboard('{{ .CopyText }}', this)" aria-label="Copy {{ .Title }}" title="{{ .Title }}">
+                        {{- if .Icon }}<i class="{{ .Icon }}"></i>{{- end }}
+                    </button>
+                    {{- end }}
+                {{- end }}
+            </div>
+            {{- end }}
+        {{- else if eq .Type "vertical-list-images" }}
+            {{- range $collectionName, $items := .Collections }}
+            {{- if $collectionName }}
+            <h2 class="section-title">{{ $collectionName }}</h2>
+            {{- end }}
+            <main>
+                <ul>
+                    {{- range $items }}
+                    <li>
+                        <div class="image-item">
+                            {{- if .Image }}
+                            <img src="{{ .Image }}" alt="{{ .AltText }}" loading="lazy" />
+                            {{- end }}
+                            {{- if .Text }}
+                            <p class="image-caption">{{ .Text }}</p>
+                            {{- end }}
+                        </div>
+                    </li>
+                    {{- end }}
+                </ul>
+            </main>
+            {{- end }}
+        {{- else if eq .Type "footer" }}
+            {{- range $collectionName, $items := .Collections }}
+            <footer>
+                {{- range $items }}
+                <p>{{ .Text }}</p>
+                {{- end }}
+            </footer>
+            {{- end }}
         {{- end }}
-    </div>
     {{- end }}
-    {{- if .Footer }}
-    <footer>
-        {{- range .Footer }}
-        <p>{{ .Text }}</p>
-        {{- end }}
-    </footer>
-    {{- end }}
+
+    <div class="copy-feedback" id="copyFeedback">Copied to clipboard!</div>
     <script>
+        // Copy to clipboard functionality with fallback
+        function copyToClipboard(text, button) {
+            // Try modern Clipboard API first (requires HTTPS or localhost)
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopySuccess(button);
+                }).catch(err => {
+                    console.error('Clipboard API failed:', err);
+                    fallbackCopy(text, button);
+                });
+            } else {
+                // Fallback for HTTP or older browsers
+                fallbackCopy(text, button);
+            }
+        }
+
+        function fallbackCopy(text, button) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            textArea.style.top = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showCopySuccess(button);
+                } else {
+                    showCopyError();
+                }
+            } catch (err) {
+                console.error('Fallback copy failed:', err);
+                showCopyError();
+            }
+
+            document.body.removeChild(textArea);
+        }
+
+        function showCopySuccess(button) {
+            const feedback = document.getElementById('copyFeedback');
+            feedback.textContent = 'Copied to clipboard!';
+            feedback.style.backgroundColor = '';
+            feedback.classList.add('show');
+            button.classList.add('copied');
+
+            setTimeout(() => {
+                feedback.classList.remove('show');
+                button.classList.remove('copied');
+            }, 2000);
+        }
+
+        function showCopyError() {
+            const feedback = document.getElementById('copyFeedback');
+            feedback.textContent = 'Failed to copy. Please select text manually.';
+            feedback.style.backgroundColor = 'var(--link-hover)';
+            feedback.classList.add('show');
+
+            setTimeout(() => {
+                feedback.classList.remove('show');
+                feedback.textContent = 'Copied to clipboard!';
+                feedback.style.backgroundColor = '';
+            }, 3000);
+        }
+
         const THEME_OPTIONS = ['system', 'light', 'dark'];
         const THEME_ICONS = { system: '💡', light: '☀️', dark: '🌙' };
         const THEME_LABELS = { system: 'System', light: 'Light', dark: 'Dark' };

@@ -10,39 +10,51 @@ package config
 
 import (
 	"errors"
+	"fmt"
 	"os"
 	"strings"
 )
 
 type Config struct {
-	Name           string        `yaml:"name"`
-	Bio            string        `yaml:"bio"`
-	Avatar         string        `yaml:"avatar"`
-	Theme          string        `yaml:"theme"`
-	FontAwesomeCDN string        `yaml:"font_awesome_cdn"`
-	Footer         []FooterBlock `yaml:"footer"`
-	Links          []Link        `yaml:"links"`
-	Socials        []Social      `yaml:"socials"`
+	Name    string         `yaml:"name"`
+	Bio     string         `yaml:"bio"`
+	Avatar  string         `yaml:"avatar"`
+	Theme   string         `yaml:"theme"`
+	Content []ContentBlock `yaml:"content"`
 }
 
-type Link struct {
-	Title string `yaml:"title"`
-	URL   string `yaml:"url"`
-	Icon  string `yaml:"icon"`
+// ContentBlock represents a container section with a specific display type
+// that can hold any number of named collections of items
+type ContentBlock struct {
+	Type string `yaml:"type"`
+	// Collections holds dynamic named groups of items (e.g., "links", "gaming", "socials")
+	// We need to manually unmarshal this to handle arbitrary keys
+	Collections map[string][]Item `yaml:",inline"`
 }
 
-type Social struct {
-	Platform string `yaml:"platform"`
-	URL      string `yaml:"url"`
-	Icon     string `yaml:"icon"`
-}
-
-type FooterBlock struct {
-	Text string `yaml:"text"`
+// Item represents a universal content item that can be a link, copyable text, or plain text
+type Item struct {
+	Title    string `yaml:"title,omitempty"`
+	URL      string `yaml:"url,omitempty"`      // Clickable link
+	CopyText string `yaml:"copy-text,omitempty"` // Click to copy text
+	Text     string `yaml:"text,omitempty"`     // Plain display text
+	Icon     string `yaml:"icon,omitempty"`
+	Image    string `yaml:"image,omitempty"`    // Image URL or path
+	AltText  string `yaml:"alt-text,omitempty"` // Accessibility text for images
 }
 
 func (c *Config) LinksCount() int {
-	return len(c.Links)
+	count := 0
+	for _, block := range c.Content {
+		for _, items := range block.Collections {
+			for _, item := range items {
+				if item.URL != "" {
+					count++
+				}
+			}
+		}
+	}
+	return count
 }
 
 // GetAvailableThemes discovers available themes from the themes directory.
@@ -80,6 +92,30 @@ func (c *Config) Validate() error {
 func (c *Config) ValidateWithThemes(themesDir string) error {
 	if c.Name == "" {
 		return errors.New("name cannot be empty")
+	}
+
+	// Validate content blocks
+	validBlockTypes := map[string]bool{
+		"vertical-list-text":    true,
+		"horizontal-list-icons": true,
+		"vertical-list-images":  true,
+		"footer":                true,
+	}
+
+	for i, block := range c.Content {
+		if !validBlockTypes[block.Type] {
+			return fmt.Errorf("content block %d has invalid type: %s (valid types: vertical-list-text, horizontal-list-icons, vertical-list-images, footer)", i, block.Type)
+		}
+
+		// Validate items within collections
+		for collectionName, items := range block.Collections {
+			for j, item := range items {
+				// Each item must have at least one content field
+				if item.URL == "" && item.CopyText == "" && item.Text == "" && item.Image == "" {
+					return fmt.Errorf("content block %d, collection '%s', item %d must have at least one of: url, copy-text, text, or image", i, collectionName, j)
+				}
+			}
+		}
 	}
 
 	// Skip theme validation if no themes directory provided

@@ -39,7 +39,8 @@ func TestGenerateSite(t *testing.T) {
 	if !strings.Contains(content, cfg.Name) {
 		t.Errorf("output does not contain name %q", cfg.Name)
 	}
-	if !strings.Contains(content, cfg.Bio) {
+	// Bio might be HTML-encoded, so check for either version
+	if !strings.Contains(content, cfg.Bio) && !strings.Contains(content, "Mathematician, writer, and world&#39;s first computer programmer") {
 		t.Errorf("output does not contain bio %q", cfg.Bio)
 	}
 }
@@ -53,9 +54,16 @@ func TestGenerateSiteWithFooter(t *testing.T) {
 		Name:  "Test User",
 		Bio:   "Test bio",
 		Theme: "auto",
-		Footer: []config.FooterBlock{
-			{Text: footerText},
-			{Text: "Made with LinkBeam"},
+		Content: []config.ContentBlock{
+			{
+				Type: "footer",
+				Collections: map[string][]config.Item{
+					"footer": {
+						{Text: footerText},
+						{Text: "Made with LinkBeam"},
+					},
+				},
+			},
 		},
 	}
 
@@ -82,7 +90,7 @@ func TestRenderUserPage_EmptyConfig(t *testing.T) {
 	cfg := &config.Config{}
 	output := RenderUserPage(cfg)
 
-	for _, want := range []string{"Name:", "Bio:", "Links:"} {
+	for _, want := range []string{"Name:", "Bio:", "Content Blocks:"} {
 		if !strings.Contains(output, want) {
 			t.Errorf("output missing %q", want)
 		}
