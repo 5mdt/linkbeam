@@ -92,22 +92,50 @@ main li {
     margin-bottom: 0.5rem;
 }
 
-main a {
-    display: block;
+main a,
+button,
+main span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     padding: 1rem;
     background-color: var(--link-bg);
     border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
     text-decoration: none;
     color: var(--text-color);
     text-align: center;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    width: 100%;
+    font: inherit;
 }
 
-main a:hover {
+main span {
+    cursor: default;
+}
+
+main a:hover,
+button:hover {
     background-color: var(--link-hover);
+    transform: translateY(-2px);
 }
 
-main a i {
-    margin-right: 0.5rem;
+main a:active,
+button:active {
+    transform: translateY(0);
+}
+
+main code {
+    background-color: rgba(127, 127, 127, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
 }
 
 footer {
@@ -121,4 +149,30 @@ footer p {
     margin: 0.5rem 0;
     color: var(--text-secondary);
     font-size: 0.9rem;
+}
+
+/* Image module styles */
+.image-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--link-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    width: 100%;
+}
+
+.image-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.25rem;
+    border: 1px solid var(--border-color);
+}
+
+.image-caption {
+    margin: 0.75rem 0 0;
+    color: var(--text-color);
+    text-align: center;
+    font-size: 0.95rem;
 }

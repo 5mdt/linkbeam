@@ -46,9 +46,32 @@ func RenderUserPage(cfg *config.Config) string {
 	var sb strings.Builder
 	fmt.Fprintf(&sb, "Name: %s\n", cfg.Name)
 	fmt.Fprintf(&sb, "Bio: %s\n", cfg.Bio)
-	sb.WriteString("Links:\n")
-	for _, link := range cfg.Links {
-		fmt.Fprintf(&sb, "- %s (%s)\n", link.Title, link.URL)
+
+	sb.WriteString("\nContent Blocks:\n")
+	for i, block := range cfg.Content {
+		fmt.Fprintf(&sb, "\nBlock %d (type: %s):\n", i+1, block.Type)
+
+		for collectionName, items := range block.Collections {
+			fmt.Fprintf(&sb, "  Collection '%s':\n", collectionName)
+			for _, item := range items {
+				if item.Title != "" {
+					fmt.Fprintf(&sb, "    - %s", item.Title)
+				}
+				if item.URL != "" {
+					fmt.Fprintf(&sb, " (url: %s)", item.URL)
+				}
+				if item.CopyText != "" {
+					fmt.Fprintf(&sb, " (copy: %s)", item.CopyText)
+				}
+				if item.Text != "" {
+					fmt.Fprintf(&sb, " (text: %s)", item.Text)
+				}
+				if item.Icon != "" {
+					fmt.Fprintf(&sb, " [%s]", item.Icon)
+				}
+				sb.WriteString("\n")
+			}
+		}
 	}
 	return sb.String()
 }

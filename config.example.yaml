@@ -2,35 +2,86 @@
 # Example configuration for LinkBeam
 
 ---
-name: "Your Name"
-bio: "A short bio about yourself"
-avatar: "static/logo.png"  # Can be a local path or URL (http://... or https://...)
-theme: "auto"
-links:
-  - title: "My Website"
-    url: "https://yourwebsite.com"
-    icon: "fas fa-globe"
-  - title: "Blog"
-    url: "https://yourblog.com"
-    icon: "fas fa-blog"
-  - title: "GitHub"
-    url: "https://github.com/yourusername"
-    icon: "fab fa-github"
-  - title: "Portfolio"
-    url: "https://portfolio.com"
-    icon: "fas fa-briefcase"
+name: "Ada Lovelace"
+bio: "Mathematician, writer, and world's first computer programmer"
+avatar: "static/ada-256x256.png"  # Can be a local path or URL (http://... or https://...)
+theme: "auto"  # Options: auto, nord, gruvbox, catppuccin-mocha, catppuccin-latte, catppuccin-frappe, catppuccin-macchiato
 
-socials:
-  - platform: "Twitter"
-    url: "https://twitter.com/yourusername"
-    icon: "fab fa-twitter"
-  - platform: "LinkedIn"
-    url: "https://linkedin.com/in/yourusername"
-    icon: "fab fa-linkedin"
-  - platform: "Instagram"
-    url: "https://instagram.com/yourusername"
-    icon: "fab fa-instagram"
+# Content blocks - flexible structure with named collections
+# Each block can contain any named collection of items
+# Item types: url (clickable link), copy-text (click to copy), text (plain display)
 
-footer:
-  - text: "© 2025 Your Name"
-  - text: "Made with LinkBeam"
+content:
+  # Vertical list with text labels - good for primary links
+  - type: vertical-list-text
+    links:
+      - title: "My Research Papers"
+        url: "https://ada.blog/research"
+        icon: "fas fa-file-alt"
+      - title: "Analytical Engine Notes"
+        url: "https://ada.blog/notes"
+        icon: "fas fa-scroll"
+      - title: "GitHub Projects"
+        url: "https://github.com/ada"
+        icon: "fab fa-github"
+      - title: "Speaking Events"
+        url: "https://ada.blog/events"
+        icon: "fas fa-calendar"
+
+  # Another vertical list - gaming profiles with copy-text
+  - type: vertical-list-text
+    gaming:
+      - title: "Steam"
+        url: "https://steamcommunity.com/id/ada_lovelace"
+        icon: "fab fa-steam"
+      - title: "Discord"
+        copy-text: "AdaLovelace#1842"
+        icon: "fab fa-discord"
+      - title: "Epic Games"
+        copy-text: "ada_lovelace"
+        icon: "fas fa-gamepad"
+
+  # Image gallery - displays images with optional captions
+  - type: vertical-list-images
+    gallery:
+      - image: "static/ada-256x256.png"
+        alt-text: "Portrait of Ada Lovelace"
+        text: "The world's first computer programmer"
+      - image: "https://picsum.photos/600/400"
+        alt-text: "Sample external image"
+        text: "Images can be local files or external URLs"
+
+  # Horizontal icon list - perfect for social media
+  - type: horizontal-list-icons
+    socials:
+      - title: "Twitter"
+        url: "https://twitter.com/ada_lovelace"
+        icon: "fab fa-twitter"
+      - title: "LinkedIn"
+        url: "https://linkedin.com/in/ada-lovelace"
+        icon: "fab fa-linkedin-in"
+      - title: "Mastodon"
+        url: "https://mastodon.social/@ada"
+        icon: "fab fa-mastodon"
+      - title: "YouTube"
+        url: "https://youtube.com/@adalovelace"
+        icon: "fab fa-youtube"
+      - title: "Email"
+        url: "mailto:ada@lovelace.dev"
+        icon: "fas fa-envelope"
+      - title: "Matrix"
+        copy-text: "@ada:matrix.org"
+        icon: "fas fa-comments"
+
+  # Footer - plain text items
+  - type: footer
+    footer:
+      - text: "© 1843-2025 Ada Lovelace"
+      - text: "Made with LinkBeam"
+
+# Notes:
+# - You can have multiple blocks of the same type
+# - Collection names (links, gaming, socials, footer) can be anything you want
+# - Each item must have at least one of: url, copy-text, or text
+# - Icons use Font Awesome class names (https://fontawesome.com/icons)
+# - Section titles are automatically generated from collection names

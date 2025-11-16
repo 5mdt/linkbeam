@@ -186,8 +186,13 @@ main li {
     margin-bottom: 1rem;
 }
 
-main a {
-    display: block;
+main a,
+button,
+main span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     padding: 1.25rem 1.5rem;
     background-color: var(--link-bg);
     border: 2px solid var(--border-color);
@@ -200,9 +205,17 @@ main a {
     box-shadow: var(--shadow-sm);
     position: relative;
     overflow: hidden;
+    cursor: pointer;
+    width: 100%;
+    font: inherit;
 }
 
-main a::before {
+main span {
+    cursor: default;
+}
+
+main a::before,
+button::before {
     content: '';
     position: absolute;
     top: 0;
@@ -213,24 +226,34 @@ main a::before {
     transition: left 0.5s ease;
 }
 
-main a:hover::before {
+main a:hover::before,
+button:hover::before {
     left: 100%;
 }
 
-main a:hover {
+main a:hover,
+button:hover {
     background-color: var(--link-hover);
     border-color: var(--accent-color);
     transform: translateY(-4px) scale(1.02);
     box-shadow: var(--shadow-md), 0 0 20px var(--glow-hover);
 }
 
-main a:active {
+main a:active,
+button:active {
     transform: translateY(-2px) scale(1.01);
     box-shadow: var(--shadow-sm);
 }
 
-main a i {
-    margin-right: 0.5rem;
+main code {
+    background-color: rgba(127, 127, 127, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
 }
 
 footer {
@@ -244,4 +267,39 @@ footer p {
     margin: 0;
     color: var(--text-secondary);
     font-size: 0.9rem;
+}
+
+/* Image module styles */
+.image-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    background-color: var(--link-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    width: 100%;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.image-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md), 0 0 20px var(--glow-hover);
+}
+
+.image-item img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.image-caption {
+    margin: 1rem 0 0;
+    color: var(--text-color);
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 500;
 }

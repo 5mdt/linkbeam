@@ -23,6 +23,49 @@ func TestValidateConfig(t *testing.T) {
 		{"missing name", Config{Name: "", Theme: "auto"}, true},
 		{"valid config", Config{Name: "Ada", Theme: "auto"}, false},
 		{"valid config with any theme", Config{Name: "Ada", Theme: "invalid"}, false}, // No theme validation without themesDir
+		{
+			name: "valid content blocks",
+			cfg: Config{
+				Name:  "Test",
+				Theme: "auto",
+				Content: []ContentBlock{
+					{
+						Type: "vertical-list-text",
+						Collections: map[string][]Item{
+							"links": {{Title: "Test", URL: "https://test.com"}},
+						},
+					},
+				},
+			},
+			wantError: false,
+		},
+		{
+			name: "invalid block type",
+			cfg: Config{
+				Name:  "Test",
+				Theme: "auto",
+				Content: []ContentBlock{
+					{Type: "invalid-type"},
+				},
+			},
+			wantError: true,
+		},
+		{
+			name: "item without content",
+			cfg: Config{
+				Name:  "Test",
+				Theme: "auto",
+				Content: []ContentBlock{
+					{
+						Type: "vertical-list-text",
+						Collections: map[string][]Item{
+							"links": {{Title: "Empty"}}, // No url, copy-text, or text
+						},
+					},
+				},
+			},
+			wantError: true,
+		},
 	}
 
 	for _, tt := range tests {
