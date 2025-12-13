@@ -3,7 +3,13 @@
 services:
   app:
     image: docker.io/5mdt/linkbeam:latest
-    build: .
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      x-bake:
+        platforms:
+          - linux/amd64
+          - linux/arm64
     volumes:
       # Mount your config file
       - ./config.yaml:/app/config/config.yaml:ro

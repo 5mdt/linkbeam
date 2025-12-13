@@ -1,6 +1,6 @@
 # Build artifacts
 /dist/
-linkbeam
+/linkbeam
 *.exe
 *.out
 *.test
@@ -40,8 +40,4 @@ config.yaml
 .pre-commit-cache/
 
 static/
-!static/favicon.png
-!static/logo.png
-!static/ada-256x256.png
-
 !.gitignore
